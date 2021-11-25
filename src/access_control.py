@@ -80,22 +80,31 @@ class AccessController:
         self.timers = []
         self._access_granted_today = 0
         self._access_granted_hour = 0
+        self._invalid_access_occur = False
+        self._invalid_access_count = 0
+
+    @property
+    def invalid_access_count(self) -> int:
+        return self._invalid_access_count
+
+    @property
+    def invalid_access_occur(self) -> bool:
+        return self._invalid_access_occur
+
+    @invalid_access_occur.setter
+    def invalid_access_occur(self, new_val):
+        print(f'invalid_access_occur updated. Value: {new_val}')
+        self._invalid_access_occur = new_val
+        if new_val is False:
+            self._invalid_access_count = 0
 
     @property
     def access_granted_today(self):
         return self._access_granted_today
 
-    @access_granted_today.setter
-    def access_granted_today(self, new_val):
-        raise Exception('should be no direct access on this variable')
-
     @property
     def access_granted_hour(self):
         return self._access_granted_hour
-
-    @access_granted_hour.setter
-    def access_granted_hour(self):
-        return Exception('should be no direct access on this variable')
 
     def validate_card(self, cardId) -> bool:
         """validate identity by checking id of card
@@ -110,6 +119,7 @@ class AccessController:
         """
         pid = self.credentials.validate(cardId)
         if pid is None:
+            self._invalid_access_occur = True
             return False
 
         self.access_granted(pid)
@@ -128,6 +138,7 @@ class AccessController:
         """
         pid = self.credentials.validate(uid)
         if pid is None:
+            self._invalid_access_occur = True
             return False
 
         self.access_granted(pid)
