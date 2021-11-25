@@ -14,7 +14,21 @@ accessController.credentials.get_identities(mock_cardid)
 
 
 class CardReader:
+    _instance = None
+
+    @staticmethod
+    def get_instance():
+        if CardReader._instance is None:
+            CardReader()
+        return CardReader._instance
+
     def __init__(self, sleep_interval=0.01, unresponsive_period=0.5):
+        if CardReader._instance is not None:
+            raise Exception(
+                'CardReader: only one instance can be created at a time')
+
+        CardReader._instance = self
+
         self.reader = SimpleMFRC522()
         # Card reader state.
         self.terminate = True
