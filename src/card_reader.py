@@ -2,7 +2,7 @@ import threading
 from time import sleep
 import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
-from access_control import AccessController
+from src.access_control import AccessController
 
 mock_cardid = {
     947650382188: 'person1',
@@ -41,7 +41,7 @@ class CardReader:
             target=self.thread_card_reader, daemon=True)
         self.LED_GREEN = 16
         self.LED_RED = 18
-        GPIO.setmode(GPIO.BOARD)
+        # GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.LED_GREEN, GPIO.OUT)
         GPIO.setup(self.LED_RED, GPIO.OUT)
         GPIO.output(self.LED_GREEN, GPIO.LOW)
