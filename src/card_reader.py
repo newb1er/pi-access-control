@@ -32,7 +32,7 @@ class CardReader:
         self.reader = SimpleMFRC522()
         # Card reader state.
         self.terminate = True
-        self.pasue = False
+        self.pause = False
         # Setup parameters.
         self.sleep_interval = sleep_interval
         self.unresponsive_period = unresponsive_period
@@ -67,11 +67,11 @@ class CardReader:
 
     # Pause the card reader from reading.
     def Pause(self):
-        self.pasue = True
+        self.pause = True
 
     # Resume the card reader to reading.
     def Resume(self):
-        self.pasue = False
+        self.pause = False
 
     def callback(self, uid, text):
         if accessController.validate_card(uid):
@@ -87,7 +87,7 @@ class CardReader:
     def thread_card_reader(self):
         while not self.terminate:
             uid, text = self.reader.read()
-            if self.callback and not self.pasue:
+            if self.callback and not self.pause:
                 self.callback(uid, text)
                 if self.unresponsive_period > 0:
                     sleep(self.unresponsive_period)
