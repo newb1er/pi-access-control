@@ -78,6 +78,24 @@ class AccessController:
         self.credentials = IdentityCredentials()
         self.allowed_list = []
         self.timers = []
+        self._access_granted_today = 0
+        self._access_granted_hour = 0
+
+    @property
+    def access_granted_today(self):
+        return self._access_granted_today
+
+    @access_granted_today.setter
+    def access_granted_today(self, new_val):
+        raise Exception('should be no direct access on this variable')
+
+    @property
+    def access_granted_hour(self):
+        return self._access_granted_hour
+
+    @access_granted_hour.setter
+    def access_granted_hour(self):
+        return Exception('should be no direct access on this variable')
 
     def validate_card(self, cardId) -> bool:
         """validate identity by checking id of card
@@ -129,6 +147,8 @@ class AccessController:
             timer = Timer(3.0, lambda: self.allowed_list.pop(0))
             timer.start()
             self.timers.append(timer)
+            self._access_granted_today += 1
+            self._access_granted_hour += 1
 
         self.after_granted()
 
