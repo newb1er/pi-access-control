@@ -93,10 +93,11 @@ class CardReader:
                     sleep(self.unresponsive_period)
 
 
-# For testing.
-card_reader = CardReader()
-card_reader.Start()
-print("Reading....")
-sleep(20)
-card_reader.Stop()
-print("Stop")
+if __name__ == '__main__':
+    # For testing.
+    card_reader = CardReader()
+    card_reader.Start()
+    print("Reading....")
+    sleep(20)
+    card_reader.Stop()
+    print("Stop")
