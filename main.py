@@ -41,6 +41,8 @@ Cloud4RpiConfig.add_var(
 
 def main():
     cloud = Cloud.get_instance()
+
+    reader.start()
     cloud.start()
 
     try:
@@ -49,6 +51,7 @@ def main():
     except KeyboardInterrupt:
         cloud.kill = True
         cloud.join()
+        reader.stop()
 
 
 if __name__ == '__main__':
