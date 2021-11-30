@@ -41,9 +41,12 @@ class CardReader:
             target=self.thread_card_reader, daemon=True)
         self.LED_GREEN = 16
         self.LED_RED = 18
-        # GPIO.setmode(GPIO.BOARD)
+        GPIO.setmode(10)
         GPIO.setup(self.LED_GREEN, GPIO.OUT)
         GPIO.setup(self.LED_RED, GPIO.OUT)
+        GPIO.output(self.LED_GREEN, GPIO.HIGH)
+        GPIO.output(self.LED_RED, GPIO.HIGH)
+        sleep(1)
         GPIO.output(self.LED_GREEN, GPIO.LOW)
         GPIO.output(self.LED_RED, GPIO.LOW)
 
@@ -107,4 +110,4 @@ if __name__ == '__main__':
             pass
     except KeyboardInterrupt:
         card_reader.stop()
-    print("Stop")
+        print("Stop")
