@@ -48,7 +48,8 @@ class CardReader:
         GPIO.output(self.LED_RED, GPIO.LOW)
 
     # Start the card reader.
-    def Start(self):
+
+    def start(self):
         # Check if Stop() was called before calling Start().
         if not self.thread:
             return
@@ -59,18 +60,18 @@ class CardReader:
         self.thread.start()
 
     # Stop the card reader. !{Cannot call Start() again after calling Stop()}!
-    def Stop(self):
+    def stop(self):
         self.terminate = True
         self.callback = None
         self.thread = None
         GPIO.cleanup()
 
     # Pause the card reader from reading.
-    def Pause(self):
+    def pause(self):
         self.pause = True
 
     # Resume the card reader to reading.
-    def Resume(self):
+    def resume(self):
         self.pause = False
 
     def callback(self, uid, text):
@@ -98,8 +99,7 @@ class CardReader:
 if __name__ == '__main__':
     # For testing.
     card_reader = CardReader()
-    card_reader.Start()
+    card_reader.start()
     print("Reading....")
-    sleep(20)
-    card_reader.Stop()
+        card_reader.stop()
     print("Stop")
