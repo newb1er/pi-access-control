@@ -101,5 +101,10 @@ if __name__ == '__main__':
     card_reader = CardReader()
     card_reader.start()
     print("Reading....")
+
+    try:
+        while True:
+            pass
+    except KeyboardInterrupt:
         card_reader.stop()
     print("Stop")
