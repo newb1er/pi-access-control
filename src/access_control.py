@@ -97,6 +97,7 @@ class AccessController:
         pid = self.credentials.validate(cardId)
         if pid is None:
             self.invalid_access_occur = True
+            self.invalid_access_count += 1
             return False
 
         self.access_granted(pid)
@@ -116,6 +117,7 @@ class AccessController:
         pid = self.credentials.validate(uid)
         if pid is None:
             self.invalid_access_occur = True
+            self.invalid_access_count += 1
             return False
 
         self.access_granted(pid)
