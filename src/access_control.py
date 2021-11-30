@@ -96,8 +96,11 @@ class AccessController:
         """
         pid = self.credentials.validate(cardId)
         if pid is None:
+            print("AccessControl: INVALID ACCESS!")
             self.invalid_access_occur = True
             self.invalid_access_count += 1
+
+            print(f'invalid_access_count = {self.invalid_access_count}')
             return False
 
         self.access_granted(pid)
@@ -116,6 +119,7 @@ class AccessController:
         """
         pid = self.credentials.validate(uid)
         if pid is None:
+            print("AccessControl: INVALID ACCESS!")
             self.invalid_access_occur = True
             self.invalid_access_count += 1
             return False

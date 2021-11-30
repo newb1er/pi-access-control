@@ -92,6 +92,8 @@ class CardReader:
                 if self.unresponsive_period > 0:
                     sleep(self.unresponsive_period)
 
+        print("reader stopped.")
+
 
 if __name__ == '__main__':
     # For testing.
