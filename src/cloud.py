@@ -12,9 +12,10 @@ class Cloud4RpiVariable:
     Returns:
         (dict): a structure just like it is in the official document
     """
-    __slots__ = ('title', 'type', 'bind', 'immutable', 'default')
+    __slots__ = ('title', 'type', 'bind_obj',
+                 'bind_attr', 'immutable', 'default')
 
-    def __init__(self, title: str, type: str, bind: any, immutable=True, default=None):
+    def __init__(self, title: str, type: str, bind_obj: object, bind_attr: str, immutable=True, default=None):
         """
         Args:
             title (str): title show in panel
@@ -25,7 +26,8 @@ class Cloud4RpiVariable:
         """
         self.title = title
         self.type = type
-        self.bind = bind
+        self.bind_obj = bind_obj
+        self.bind_attr = bind_attr
         self.immutable = immutable
         self.default = default
 
@@ -45,8 +47,8 @@ class Cloud4RpiVariable:
 
     def _callback(self, value=None):
         if self.immutable and value is not None:
-            self.bind = value
-        return self.bind
+            setattr(self.bind_obj, self.bind_attr, value)
+        return getattr(self.bind_obj, self.bind_attr)
 
 
 class Cloud4RpiConfig:
@@ -79,8 +81,8 @@ class Cloud(Cloud4RpiConfig, threading.Thread):
     _instance = None
 
     DEVICE_TOKEN = None  # ! should not fill your token here
-    DATA_SENDING_INTERVAL = 60  # secs
-    DIAG_SENDING_INTERVAL = 650  # secs
+    DATA_SENDING_INTERVAL = 15  # secs
+    DIAG_SENDING_INTERVAL = 60  # secs
     POLL_INTERVAL = 0.5  # secs
 
     @staticmethod

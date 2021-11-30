@@ -13,28 +13,28 @@ cpu = CPUTemperature(threshold=10.0)
 # Card Reader Pause Toggle
 Cloud4RpiConfig.add_var(
     Cloud4RpiVariable('Card Reader Pause', 'bool',
-                      reader.pause, default=False)()
+                      reader, 'pause', default=False)()
 )
 
 # invalid access
 Cloud4RpiConfig.add_var(
     Cloud4RpiVariable('invalid access', 'numeric',
-                      access_controller.invalid_access_count, default=False)()
+                      access_controller, 'invalid_access_count', immutable=False)()
 )
 
 Cloud4RpiConfig.add_var(
     Cloud4RpiVariable('access granted (hour)', 'numeric',
-                      access_controller.access_granted_hour, immutable=False)()
+                      access_controller, 'access_granted_hour', immutable=False)()
 )
 
 Cloud4RpiConfig.add_var(
     Cloud4RpiVariable('access granted (today)', 'numeric',
-                      access_controller.access_granted_today, immutable=False)()
+                      access_controller, 'access_granted_today', immutable=False)()
 )
 
 Cloud4RpiConfig.add_var(
     Cloud4RpiVariable('CPU Temp', 'numeric' if cpu else 'string',
-                      cpu.temperature if cpu else 'cannot read cpu info', immutable=False)()
+                      cpu, 'temperature', immutable=False)()
 )
 # --------------- END LINE --------------------
 
