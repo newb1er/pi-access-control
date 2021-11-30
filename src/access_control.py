@@ -140,7 +140,7 @@ class AccessController:
             self.access_granted_today += 1
             self.access_granted_hour += 1
 
-        self.after_granted()
+        # self.after_granted()
 
     def after_granted(self):
         """handler function after access granted
