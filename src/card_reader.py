@@ -1,4 +1,6 @@
 import threading
+import requests
+import urllib.request
 from time import sleep
 import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
@@ -95,6 +97,7 @@ class CardReader:
                 self.callback(uid, text)
                 if self.unresponsive_period > 0:
                     sleep(self.unresponsive_period)
+            sleep(self.sleep_interval)
 
         print("reader stopped.")
 
