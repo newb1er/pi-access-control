@@ -1,8 +1,10 @@
 import threading
+import requests
+import urllib.request
 from time import sleep
 import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
-from src.access_control import AccessController
+from access_control import AccessController # DBG : modified for testing
 
 mock_cardid = {
     947650382188: 'person1',
@@ -95,6 +97,7 @@ class CardReader:
                 self.callback(uid, text)
                 if self.unresponsive_period > 0:
                     sleep(self.unresponsive_period)
+            sleep(self.sleep_interval)
 
         print("reader stopped.")
 
