@@ -11,6 +11,7 @@ paho-mqtt==1.6.1
 pycodestyle==2.8.0
 python-apt==2.2.1
 python-dotenv==0.19.2
+raspiot==0.1.4
 requests==2.25.1
 RPi.GPIO==0.7.0
 six==1.16.0
